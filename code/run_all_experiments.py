@@ -4,7 +4,7 @@ Unified experiment suite for LC-MS CNN classification paper.
 
 Experiments:
   1. Architecture ablation: ResNet-18/34/50/101/152 on full-spectrum 256×256
-  2. Resolution ablation: Full-spectrum 256/512/1024/2048 with ResNet-50
+  2. Resolution ablation: Full-spectrum 256/512/1024 with ResNet-34
   3. Subregion ablation: Bottom-left quadrant 256/512/1024 with ResNet-50
 
 All experiments use:
@@ -13,7 +13,7 @@ All experiments use:
   - Same augmentation strategy (ColorJitter, GaussianBlur, Noise)
   - Cosine annealing LR schedule with warmup
 
-Refinements over original experiments:
+Key features:
   - 3 seeds (42, 69, 137) for mean ± std reporting
   - Cosine annealing with warmup (better for fine-tuning than ReduceLROnPlateau)
   - Initial LR 5e-4 (slightly lower, gentler fine-tuning)
@@ -228,7 +228,7 @@ class LCMSDataset(Dataset):
 
 
 class TransferResNet(nn.Module):
-    def __init__(self, variant="resnet50"):
+    def __init__(self, variant="resnet34"):
         super().__init__()
         model_fn, weights = RESNET_CONFIGS[variant]
         self.backbone = model_fn(weights=weights)
@@ -651,9 +651,9 @@ def main():
                         help="Which experiment group to run")
     parser.add_argument("--seeds", type=int, nargs="+", default=None,
                         help="Subset of seeds to run (e.g. --seeds 42 69). Default: all seeds.")
-    parser.add_argument("--variant", type=str, default="resnet50",
+    parser.add_argument("--variant", type=str, default="resnet34",
                         choices=list(RESNET_CONFIGS.keys()),
-                        help="ResNet variant for resolution/subregion experiments (default: resnet50)")
+                        help="ResNet variant for resolution/subregion experiments (default: resnet34)")
     parser.add_argument("--merge", action="store_true",
                         help="Merge per-seed CSV fragments and exit (run after parallel jobs finish)")
     args = parser.parse_args()
@@ -709,7 +709,7 @@ def main():
     if args.experiment in ["all", "resolution"]:
         variant = args.variant
         res_experiments = []
-        for res in [256, 512, 1024, 2048]:
+        for res in [256, 512, 1024]:
             res_experiments.append({
                 "name": f"fullspec_{variant}_{res}",
                 "variant": variant,

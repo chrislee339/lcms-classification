@@ -4,7 +4,7 @@ Pipeline:
   1. Per-file FeatureFindingMetabo (pyOpenMS) extracts (m/z, RT, intensity)
      features. Parallelized over files.
   2. Pool features into a global (m/z, RT) grid for cross-sample alignment
-     (5 ppm m/z, 5s RT bins by default). Each (m/z bin, RT bin) becomes a
+     (0.01 Da m/z, 5 s RT bins by default). Each (m/z bin, RT bin) becomes a
      candidate feature; bins seen in fewer than `min_freq` of samples are
      dropped.
   3. Log10(intensity + 1) transform.

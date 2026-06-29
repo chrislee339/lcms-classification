@@ -1,5 +1,5 @@
 """
-Phase 2 of revision: model-independent QC criterion hunt for S11.
+Model-independent image-level QC criterion hunt for patient S11.
 
 Computes per-image QC metrics on the 512x512 binned spectra (independent
 of any trained model) and flags outliers. Goal: see if S11 is identifiable

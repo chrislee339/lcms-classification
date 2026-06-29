@@ -1,26 +1,23 @@
 """
-Phase 4 of revision: GradCAM-region occlusion test.
+GradCAM-region occlusion test: distinguish discriminative regions from
+merely bright ones.
 
-The reviewer raised the concern that GradCAM may be locating where the
-signal is brightest rather than where the discriminative information is.
-To address this, we re-run inference with each of the four image quadrants
-masked out (zeroed) in turn, plus an "only quadrant" control where the
-rest of the image is zeroed. We compare:
+Re-runs inference with each of the four image quadrants masked out (zeroed)
+in turn, plus an "only quadrant" control where the rest of the image is
+zeroed. Three quantities are compared:
 
   1. accuracy/AUC drop when each quadrant is occluded (a discriminative
-     quadrant should cause the largest drop when masked out);
-  2. mean image intensity in each quadrant (the "brightness" baseline);
+     quadrant causes the largest drop when masked out);
+  2. mean image intensity in each quadrant (the brightness baseline);
   3. accuracy/AUC retained when only one quadrant is shown.
 
-If GradCAM were merely tracking brightness, masking the brightest
-quadrant should produce the largest drop. If the GradCAM-highlighted
-quadrant is genuinely discriminative beyond its brightness, masking it
-should drop accuracy more than masking other (similarly bright) quadrants.
-
-Reuses the model and dataset code from generate_predictions_v3.py.
+If attention merely tracked brightness, masking the brightest quadrant
+would produce the largest drop. If the GradCAM-highlighted quadrant is
+discriminative beyond its brightness, masking it drops accuracy more than
+masking other, similarly bright quadrants.
 
 Output:
-  results/gradcam_occlusion.csv   per-image predictions for each condition
+  results/gradcam_occlusion.csv          per-image predictions per condition
   results/gradcam_occlusion_summary.csv  per-fold/seed accuracy by condition
 """
 from pathlib import Path

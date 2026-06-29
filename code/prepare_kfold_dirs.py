@@ -129,7 +129,6 @@ def main():
         ("spectra_filter_256", "v2_256_by_patient_rmS11"),
         ("spectra_filter_512", "v2_512_by_patient_rmS11"),
         ("spectra_filter_1024", "v2_1024_by_patient_rmS11"),
-        ("spectra_filter_2048", "v2_2048_by_patient_rmS11"),
 
         ("focused_zoom_256", "v2_subregion_256_by_patient_rmS11"),
         ("focused_zoom_512", "v2_subregion_512_by_patient_rmS11"),

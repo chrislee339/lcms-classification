@@ -1,5 +1,5 @@
 """
-Phase 3 of revision: bootstrap CIs and Holm-corrected Wilcoxon p-values
+Bootstrap CIs and Holm-corrected Wilcoxon p-values
 on paired ablation differences (architecture and resolution).
 
 For each pair of configurations, treats fold-level metrics paired by
@@ -10,7 +10,7 @@ For each pair of configurations, treats fold-level metrics paired by
   - Holm-corrected p-value across all comparisons in a family (architecture
     pairs and resolution pairs are corrected separately)
 
-Outputs CSVs to results/ that the v4 paper can pull in for the
+Outputs CSVs to results/ for the
 sensitivity-analysis tables.
 """
 from itertools import combinations

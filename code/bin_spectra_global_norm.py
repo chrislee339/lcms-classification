@@ -1,8 +1,8 @@
 """Re-bin LC-MS mzML files using globally aligned m/z and RT axes.
 
 This is the data-preparation step for the per-sample vs global normalization
-head-to-head experiment. It replaces the per-file min/max normalization
-performed in `create_plot.py` with a single cohort-wide axis range:
+head-to-head experiment. It replaces the per-file min/max normalization performed in
+`bin_spectra_per_sample.py` with a single cohort-wide axis range:
 
   * Pass 1 (over all mzML files): compute global m/z range, RT range, and
     log-intensity range across every spectrum in every file. Also records
@@ -16,9 +16,8 @@ performed in `create_plot.py` with a single cohort-wide axis range:
 
 Memory-frugal implementation: spectra are streamed one at a time via
 `OnDiscMSExperiment`, so each pass holds at most one decoded spectrum in
-memory regardless of mzML file size. This was added so the script can run
-on a 32 GB workstation; the original `MSExperiment().load(...)` materialized
-the full mzML in RAM and routinely OOMed on this hardware.
+memory regardless of mzML file size. This keeps memory use low on machines
+that cannot hold a full mzML in RAM.
 
 Usage:
     python3 bin_spectra_global_norm.py --mzml /path/to/mzml \
@@ -57,7 +56,7 @@ def _open_on_disk(path: Path):
 def _peak_count_cutoff(exp) -> int:
     """Two-pass-on-the-same-file cost is fine: getSpectrum is fast on the
     on-disk index. We record peak counts to set a per-file cutoff matching
-    the original create_plot.py behavior."""
+    the original per-sample binning behavior."""
     n = exp.getNrSpectra()
     counts = np.empty(n, dtype=np.int64)
     for i in range(n):

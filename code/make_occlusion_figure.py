@@ -1,4 +1,4 @@
-"""Generate the occlusion-test figure for the revised paper."""
+"""Generate the occlusion-test figure."""
 from pathlib import Path
 import numpy as np
 import pandas as pd

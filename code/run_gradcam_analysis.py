@@ -9,10 +9,10 @@ Generates:
 
 Usage:
   python run_gradcam_analysis.py \
-      --model_dir models/resnet_v2/arch_resnet50_256_seed42_fold0/ \
+      --model_dir models/resnet_v2/fullspec_resnet34_512_seed42_fold0/ \
       --data_dir data/kfold/v2_256_by_patient_rmS11/fold_0/test/ \
       --output_dir gradcam_outputs/fold_0/ \
-      --variant resnet50
+      --variant resnet34
 """
 
 import os
@@ -44,7 +44,7 @@ RESNET_CONFIGS = {
 
 
 class TransferResNet(nn.Module):
-    def __init__(self, variant="resnet50"):
+    def __init__(self, variant="resnet34"):
         super().__init__()
         model_fn, weights = RESNET_CONFIGS[variant]
         self.backbone = model_fn(weights=weights)
@@ -275,7 +275,7 @@ def get_label_from_filename(filename):
         raise ValueError(f"Cannot determine label from filename: {filename}")
 
 
-def run_gradcam_single_fold(model_dir, data_dir, output_dir, variant="resnet50"):
+def run_gradcam_single_fold(model_dir, data_dir, output_dir, variant="resnet34"):
     """Run GradCAM analysis on a single fold."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Device: {device}")
@@ -493,7 +493,7 @@ def main():
                                help="Path to test data directory")
     single_parser.add_argument("--output_dir", type=str, required=True,
                                help="Where to save GradCAM outputs")
-    single_parser.add_argument("--variant", type=str, default="resnet50",
+    single_parser.add_argument("--variant", type=str, default="resnet34",
                                choices=list(RESNET_CONFIGS.keys()),
                                help="ResNet variant (default: resnet50)")
 
@@ -517,7 +517,7 @@ def main():
                              help="Path to test data directory")
         parser2.add_argument("--output_dir", type=str, required=True,
                              help="Where to save GradCAM outputs")
-        parser2.add_argument("--variant", type=str, default="resnet50",
+        parser2.add_argument("--variant", type=str, default="resnet34",
                              choices=list(RESNET_CONFIGS.keys()),
                              help="ResNet variant (default: resnet50)")
         args = parser2.parse_args()

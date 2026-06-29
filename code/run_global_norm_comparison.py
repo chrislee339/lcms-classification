@@ -2,7 +2,7 @@
 write detailed/summary CSVs comparable to the main per-sample-normalized
 results.
 
-PRE-REQUISITES on this machine:
+PRE-REQUISITES:
   1. Raw mzML files must be present at data/mzml/{classA,classB}/.
   2. Run:
        python3 code/bin_spectra_global_norm.py \

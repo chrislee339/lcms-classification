@@ -2,7 +2,7 @@
 
 Reads:
   results/fullspec_resnet34_512_detailed.csv          (CNN headline)
-  results/classical_baselines_detailed.csv            (from HPC)
+  results/classical_baselines_detailed.csv
 
 Writes:
   results/classical_comparison.csv                    (one row per
