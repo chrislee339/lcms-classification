@@ -28,3 +28,9 @@ figures/
 logs/
 *_features_cache.json
 _ranges_cache.json
+
+# Patient-derived working files of the analysis scripts
+/data/s11_aug/
+/data/s11_aug_check/
+/nested/
+/nested37/

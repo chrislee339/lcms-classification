@@ -1,7 +1,8 @@
 """Build kfold directories with S11 included.
 
 Mirrors prepare_kfold_dirs.py but reads patient_splits_withS11.json and
-includes S11 in the cohort. Outputs to v2_<res>_by_patient_withS11/.
+includes S11 in the cohort. Outputs to v2_<res>_by_patient_withS11/ and the
+subregion and global-normalization variants listed in CONFIGS.
 """
 import json
 import os
@@ -27,6 +28,11 @@ EXCLUDE_FILES = {"Fetuin_final.png", "S2B-5x-0302.png"}
 CONFIGS = [
     ("spectra_filter_256", "v2_256_by_patient_withS11"),
     ("spectra_filter_512", "v2_512_by_patient_withS11"),
+    ("spectra_filter_1024", "v2_1024_by_patient_withS11"),
+    ("focused_zoom_1024", "v2_subregion_1024_by_patient_withS11"),
+    ("spectra_filter_global_512", "v2_512_by_patient_globalnorm_withS11"),
+    ("focused_zoom_512", "v2_subregion_512_by_patient_withS11"),
+    ("focused_zoom_256", "v2_subregion_256_by_patient_withS11"),
 ]
 
 
